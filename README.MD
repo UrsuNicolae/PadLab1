@@ -8,21 +8,21 @@
 
 # Architecture
 
-![](https://github.com/UrsuNicolae/PadLab1/blob/main/PADArchitecture2.png)
+![](https://github.com/UrsuNicolae/PadLab1/blob/main/PADArchitecture3.png)
 
 # Description
 
 - Ocelot
   - GateWay for our application.
   - Implement request Cache-ing, Round-Robing load balancing
-- TeaAPI
-  - Service for retrival of all available teas from db
-- CoffeAPI
-  - Service for retrival of all available coffes from db
+- Innstagram Clone
+  - Clone of instagram which will be our main service
 - Sql servers
   - Main db for each searvice
 - Redis servers
   - Main cache service for each service
+- Cloudinary
+  - Blob storage for photos
 
   
 
