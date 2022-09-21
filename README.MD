@@ -33,4 +33,6 @@
   - Adapter with a unified interface to build DB calls based on DB type;
   - Status Endpoint
 - Gateway
-  -Load Balancing:  Round Robin
+  - Load Balancing:  Round Robin
+- Cache
+  - Query language
