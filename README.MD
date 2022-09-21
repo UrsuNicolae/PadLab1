@@ -8,7 +8,7 @@
 
 # Architecture
 
-![](https://github.com/UrsuNicolae/PadLab1/blob/main/PadArchitetucre3.png)
+![](https://github.com/UrsuNicolae/PadLab1/blob/main/PADArchitecture.png)
 
 # Description
 
@@ -24,5 +24,10 @@
 - Cloudinary
   - Blob storage for photos
 
-  
-
+#Feature to be implemented
+- Service
+  - SQL and NoSQL databases;
+  - Task Timeouts;
+  - Adapter with a unified interface to build DB calls based on DB type;
+- Gateway
+  -Load Balancing:  Round Robin
