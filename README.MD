@@ -5,6 +5,8 @@
 - Docker
 - SQL Server
 - Redis
+- OpenId
+- Cloudinary
 
 # Architecture
 
