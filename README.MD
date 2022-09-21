@@ -8,7 +8,7 @@
 
 # Architecture
 
-![](https://github.com/UrsuNicolae/PadLab1/blob/main/PadArchitetucre3.png)
+![](https://github.com/UrsuNicolae/PadLab1/blob/main/PADArchitecture.png)
 
 # Description
 
