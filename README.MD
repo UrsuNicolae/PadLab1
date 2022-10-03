@@ -5,10 +5,12 @@
 - Docker
 - SQL Server
 - Redis
+- OpenId
+- Cloudinary
 
 # Architecture
 
-![](https://github.com/UrsuNicolae/PadLab1/blob/main/PADArchitecture.png)
+![](https://github.com/UrsuNicolae/PadLab1/blob/main/PAD.png)
 
 # Description
 
@@ -24,10 +26,13 @@
 - Cloudinary
   - Blob storage for photos
 
-#Feature to be implemented
+# Feature to be implemented
 - Service
   - SQL and NoSQL databases;
   - Task Timeouts;
   - Adapter with a unified interface to build DB calls based on DB type;
+  - Status Endpoint
 - Gateway
-  -Load Balancing:  Round Robin
+  - Load Balancing:  Round Robin
+- Cache
+  - Query language
