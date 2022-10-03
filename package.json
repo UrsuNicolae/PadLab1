@@ -1,0 +1,22 @@
+{
+  "name": "pad",
+  "version": "1.0.0",
+  "description": "- .NET 6\r - Docker\r - SQL Server\r - Redis",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UrsuNicolae/PadLab1.git"
+  },
+  "author": "Ursu Nicolae",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UrsuNicolae/PadLab1/issues"
+  },
+  "homepage": "https://github.com/UrsuNicolae/PadLab1#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
