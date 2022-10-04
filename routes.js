@@ -6,13 +6,24 @@ const ROUTES = [
             target: "https://localhost:7100/api/Account/Register",
             changeOrigin: true,
             pathRewrite: {
-                [`^/free`]: '',
+                [`^/register`]: '',
+            },
+        }
+    },
+    {
+        url: '/test',
+        auth: false,
+        proxy: {
+            target: "https://www.google.com/",
+            changeOrigin: true,
+            pathRewrite: {
+                [`^/test`]: '',
             },
         }
     },
     {
         url: '/login',
-        auth: true,
+        auth: false,
         proxy: {
             target: "https://localhost:7100/api/Account/Login",
             changeOrigin: true,
