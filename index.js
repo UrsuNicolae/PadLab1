@@ -5,7 +5,8 @@ require('dotenv').config()
 
 
 const PORT =  8000;
-const TARGET =  "http://localhost:5100";
+const authServiceTarget =  "http://localhost:5100";
+const mainServiceTarget =  "http://localhost:5000";
 
 const app = express();
 
@@ -24,12 +25,22 @@ app.use(express.Router().get('/test', (_, res) => {
 }))
 
 app.use(
-  "/",
+  "/auth",
   createProxyMiddleware({
-    target: TARGET,
+    target: authServiceTarget,
     changeOrigin: true,
+    pathRewrite: function (path, req) { return path.replace('/auth', '') }
   })
 );
+
+app.use(
+    "/main",
+    createProxyMiddleware({
+      target: mainServiceTarget,
+      changeOrigin: true,
+      pathRewrite: function (path, req) { return path.replace('/main', '') }
+    })
+  );
 
 app.listen(PORT, () =>
   console.log(`Proxy is running on port: ${PORT}`)
