@@ -2,8 +2,8 @@ version: "3"
 services:
   gateway:
     image: nicolaedockerid/padgateway
-    portss:
-      - 8000:80
+    ports:
+      - 8000:8000
   redis:
     image: redis
     ports:
