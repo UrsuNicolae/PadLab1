@@ -1,15 +1,10 @@
 const express = require('express')
 const {createProxyMiddleware} = require("http-proxy-middleware")
 const rateLimit = require('express-rate-limit')
-require('dotenv').config()
-
+require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` } )
 
 const PORT =  8000;
-const authServiceTarget =  "http://localhost:5100";
-const mainServiceTarget =  "http://localhost:5000";
-
 const app = express();
-
 const limiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minutes
   max: 100, // Limit each IP to 100 requests per `window` (here, per 1 minute)
@@ -23,11 +18,11 @@ app.use(limiter);
 app.use(express.Router().get('/test', (_, res) => {
   res.status(200).send('Proxy is OK')
 }))
-
+console.log(process.env.authServiceTarget);
 app.use(
   "/auth",
   createProxyMiddleware({
-    target: authServiceTarget,
+    target: process.env.authServiceTarget,
     changeOrigin: true,
     pathRewrite: function (path, req) { return path.replace('/auth', '') }
   })
@@ -36,7 +31,7 @@ app.use(
 app.use(
     "/main",
     createProxyMiddleware({
-      target: mainServiceTarget,
+      target: process.env.mainServiceTarget,
       changeOrigin: true,
       pathRewrite: function (path, req) { return path.replace('/main', '') }
     })

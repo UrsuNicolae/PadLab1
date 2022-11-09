@@ -1,0 +1,22 @@
+version: "3"
+services:
+  gateway:
+    image: nicolaedockerid/padgateway
+    portss:
+      - 8000:80
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+  auth-service:
+    image: nicolaedockerid/authservice
+    ports:
+      - 8080:80
+  ms-sql-server:
+    image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "aDMIN123*"
+      MSSQL_PID: EXPRESS
+    ports:
+      - 1433:1433
