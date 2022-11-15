@@ -9,7 +9,7 @@ services:
     ports:
       - "6379:6379"
   auth-service:
-    image: nicolaedockerid/authservice
+    image: nicolaedockerid/authservice:pad
     ports:
       - 8080:80
   insta_api:
@@ -24,3 +24,27 @@ services:
       MSSQL_PID: EXPRESS
     ports:
       - 1433:1433
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.16.1
+    ports:
+      - 9200:9200
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    environment:
+      - xpack.monitoring.enabled=true
+      - xpack.watcher.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - discovery.type=single-node
+
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:7.16.1
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
+    environment:
+      - ELASTICSEARCH_URL=http://localhost:9200
+
+volumes:
+  elasticsearch-data:
