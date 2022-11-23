@@ -1,9 +1,35 @@
 const express = require('express')
-const {createProxyMiddleware} = require("http-proxy-middleware")
+const { createProxyMiddleware } = require("http-proxy-middleware")
 const rateLimit = require('express-rate-limit')
-require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` } )
+require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` })
 
-const PORT =  8000;
+const winston = require('winston');
+const Elasticsearch = require('winston-elasticsearch');
+
+const esTransportOpts = {
+  level: 'info',
+  clientOpts: {
+    host: ((process.env.NODE_ENV !== 'production') ? "http://localhost:9200" : "http://host.docker.internal:9200"),
+    log: "info"
+  }
+};
+
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
+  transports: [
+    new winston.transports.File({ filename: "logfile.log", level: 'error' }), //save errors on file
+    new Elasticsearch(esTransportOpts) //everything info and above goes to elastic
+  ]
+});
+
+if (process.env.NODE_ENV !== 'production') {
+  logger.add(new winston.transports.Console({ //we also log to console if we're not in production
+    format: winston.format.simple()
+  }));
+}
+
+const PORT = 8000;
 const app = express();
 const limiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minutes
@@ -14,29 +40,34 @@ const limiter = rateLimit({
 });
 
 app.use(limiter);
-
 app.use(express.Router().get('/test', (_, res) => {
   res.status(200).send('Proxy is OK')
 }))
-console.log(process.env.authServiceTarget);
+
 app.use(
   "/auth",
   createProxyMiddleware({
     target: process.env.authServiceTarget,
     changeOrigin: true,
-    pathRewrite: function (path, req) { return path.replace('/auth', '') }
+    pathRewrite: function (path, req) {
+      logger.info("Redirect to auth")
+      return path.replace('/auth', '')
+    }
   })
 );
 
 app.use(
-    "/main",
-    createProxyMiddleware({
-      target: process.env.mainServiceTarget,
-      changeOrigin: true,
-      pathRewrite: function (path, req) { return path.replace('/main', '') }
-    })
-  );
+  "/main",
+  createProxyMiddleware({
+    target: process.env.mainServiceTarget,
+    changeOrigin: true,
+    pathRewrite: function (path, req) {
+      logger.info("Redirect to main")
+      return path.replace('/main', '')
+    }
+  })
+);
 
 app.listen(PORT, () =>
-  console.log(`Proxy is running on port: ${PORT}`)
+  logger.info(`Proxy is running on port: ${PORT}`)
 );

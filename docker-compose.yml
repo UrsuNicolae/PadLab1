@@ -1,29 +1,29 @@
 version: "3"
 services:
-  gateway:
-    image: nicolaedockerid/padgateway
-    ports:
-      - 8000:8000
-  redis:
-    image: redis
-    ports:
-      - "6379:6379"
-  auth-service:
-    image: nicolaedockerid/authservice:pad
-    ports:
-      - 8080:80
-  insta_api:
-    image: dpuscas/insta
-    ports:
-      - "8081:80"
-  ms-sql-server:
-    image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
-    environment:
-      ACCEPT_EULA: "Y"
-      SA_PASSWORD: "aDMIN123*"
-      MSSQL_PID: EXPRESS
-    ports:
-      - 1433:1433
+  # gateway:
+  #   image: nicolaedockerid/padgateway
+  #   ports:
+  #     - 8000:8000
+  # redis:
+  #   image: redis
+  #   ports:
+  #     - "6379:6379"
+  # auth-service:
+  #   image: nicolaedockerid/authservice:pad
+  #   ports:
+  #     - 8080:80
+  # insta_api:
+  #   image: dpuscas/insta
+  #   ports:
+  #     - "8081:80"
+  # ms-sql-server:
+  #   image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+  #   environment:
+  #     ACCEPT_EULA: "Y"
+  #     SA_PASSWORD: "aDMIN123*"
+  #     MSSQL_PID: EXPRESS
+  #   ports:
+  #     - 1433:1433
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.16.1
     ports:
